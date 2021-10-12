@@ -1,4 +1,5 @@
-
+using Asteroids.Builder;
+using Asteroids.ServiceLocator;
 using UnityEngine;
 
 namespace Asteroids
@@ -11,12 +12,16 @@ namespace Asteroids
         [SerializeField] private Rigidbody2D _bullet;
         [SerializeField] private Transform _barrel;
         [SerializeField] private float _force;
-        
+        [SerializeField] private Sprite _sprite;
+
         private Camera _camera;
         private Ship _ship;
         private Fire _fire;
         private OnCollisionEnter _onCollisionEnter;
-
+        private GameObjectBuilder _gameObjectBuilder;
+        
+        [SerializeField] private Sprite _newEnemySprite;
+        
         private void Start()
         {
             _camera = Camera.main;
@@ -24,6 +29,14 @@ namespace Asteroids
                 _acceleration);
             var rotation = new RotationShip(transform);
             _ship = new Ship(moveTransform, rotation);
+            
+            var gameObjectBuilder = new GameObjectBuilder();
+            GameObject bullet =
+                gameObjectBuilder.Visual.Name("My bullet").Sprite(_sprite).Physics.Rigidbody2D(5)
+                    .BoxCollider2D();
+            
+            new GameObject().SetName("New Enemy").AddBoxCollider2D().AddRigidbody2D
+                (5.0f).AddSprite(_newEnemySprite);
         }
         
         private void Update()
@@ -56,7 +69,7 @@ namespace Asteroids
             }
 
             if (Input.GetButtonDown("Fire1"))
-            {
+            { 
                 _fire.Shot(temAmmunition);
             }
         }

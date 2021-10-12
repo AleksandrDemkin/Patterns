@@ -1,6 +1,7 @@
 ﻿using Asteroid;
 using Asteroids.Object_Pool;
 using UnityEngine;
+
 namespace Asteroids
 {
     public abstract class Enemy : MonoBehaviour

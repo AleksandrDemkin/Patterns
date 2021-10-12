@@ -11,9 +11,9 @@
             Current = current;
         }
 
-        public void ChangeCurrentBullet(float hp)
+        public void ChangeCurrentBullet(float bullet)
         {
-            Current = hp;
+            Current = bullet;
         }
     }
 }
